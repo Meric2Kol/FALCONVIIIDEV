@@ -1,0 +1,20 @@
+select COUNT() FROM Contact
+
+//Aggregate Function Sum
+SELECT SUM(Amount) FROM Opportunity WHERE IsClosed = false AND Probability > 60
+
+//Group BY
+SELECT LeadSource, COUNT(Name) FROM Lead GROUP BY LeadSource
+
+//Group by + HAVING
+//Query returns Accounts with dublicate names
+SELECT Name, Count(Id) FROM Account GROUP BY Name HAVING Count(Id) > 1
+
+//1.SUM of amount for all opps which are not closed
+//2.SUM of amount for all opps stageName wise
+
+SELECT SUM(Amount) stageName FROM Opportunity WHERE IsClosed = false group by stageName
+
+//more than 50000
+SELECT SUM(Amount) stageName FROM Opportunity WHERE IsClosed = false group by stageName having sum(amount)>50000
+
