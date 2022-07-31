@@ -1,3 +1,5 @@
+// deneme
+
 public class DmlDemo {
     public static void dmlInsertDemo_stndObj() {
         //1. creating new instance of account sObject
