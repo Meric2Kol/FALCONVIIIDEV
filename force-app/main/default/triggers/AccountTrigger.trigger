@@ -1,16 +1,104 @@
 trigger AccountTrigger on Account (before insert, before update, after insert, after update) {
-    
+
     system.debug('====Trigger START====');
-    List<account> newAccounts = trigger.new; // is list<sObject>
+
+    if(trigger.isAfter && trigger.isUpdate){
+        integer countWebSiteUpdate = 0;
+
+        map<id, account> trgOldMap = trigger.oldMap;
+        map<id, account> trgNewMap = trigger.newMap;
+
+        set<id> accIdSet = trgNewMap.keySet();
+
+        for(Id eachId: accIdSet){
+            account newAcc = trgnewmap.get(eachId);
+            string newWebSite = newAcc.Website;
+
+            account oldAcc = trgOldmap.get(eachId);
+            string oldWebSite = oldAcc.Website;
+
+            if(newWebSite != oldWebSite){
+                system.debug('Acc Name : ' + newAcc.Name + ', website is changed TO ===>>> ' + newWebsite);
+                countWebSiteUpdate++;
+            }
+        }
+        system.debug('count of website updated accounts => ' + countwebsiteupdate);
+    }
+    system.debug('====Trigger END====');
+    
+    /*
+
+    if(trigger.isBefore && trigger.isInsert){
+        system.debug('====BEFORE INSERT====');
+        system.debug('Old Map ==> ' + trgOldMap); //null =>because no old
+        system.debug('New Map ==> ' + trgNewMap); //null =>key is ID and NO ID, so newMap is NULL
+    }
+    if(trigger.isAfter && trigger.isInsert){
+        system.debug('====AFTER INSERT====');
+        system.debug('Old Map ==> ' + trgOldMap); //null => because no old
+        system.debug('New Map ==> ' + trgNewMap); //YES
+    }
+    if(trigger.isBefore && trigger.isUpdate){
+        system.debug('====BEFORE UPDATE====');
+        system.debug('Old Map ==> ' + trgOldMap);//YES
+        system.debug('New Map ==> ' + trgNewMap);//YES
+    }
+    if(trigger.isAfter && trigger.isUpdate){
+        system.debug('====AFTER UPDATE====');
+        system.debug('Old Map ==> ' + trgOldMap);//YES
+        system.debug('New Map ==> ' + trgNewMap);//YES
+    }
+    
+    if (trigger.isAfter && trigger.isUpdate){
+        List<Account> oldAccounts = trigger.old;
+        List<Account> newAccounts = trigger.new;
+        for(Account oldAcc : oldAccounts){
+        system.debug('Old account id: ' + oldAcc.id + ', Old account name ' + oldAcc.Name);
+        }
+        
+
+        for(Account newAcc : newAccounts){
+            system.debug('New account id: ' + newAcc.id + ', New account name ' + newAcc.Name);
+        }
+
+    if (trigger.isBefore && trigger.isInsert) {
+        system.debug('before insert trigger trigger.old = ' + trigger.old);
+    }
+    if (trigger.isAfter && trigger.isInsert) {
+        system.debug('after insert trigger trigger.old = ' + trigger.old);
+    }
+    if (trigger.isBefore && trigger.isUpdate) {
+        system.debug('before update trigger trigger.old = ' + trigger.old);
+    }
+    if (trigger.isAfter && trigger.isUpdate) {
+        system.debug('after update trigger trigger.old = ' + trigger.old);
+    }
+
+    if (trigger.isBefore && trigger.isInsert) {
+        system.debug('before insert trigger trigger.new = ' + trigger.new);
+    }
+    if (trigger.isAfter && trigger.isInsert) {
+        system.debug('after insert trigger trigger.new = ' + trigger.new);
+    }
+    if (trigger.isBefore && trigger.isUpdate) {
+        system.debug('before update trigger trigger.new = ' + trigger.new);
+    }
+    if (trigger.isAfter && trigger.isUpdate) {
+        system.debug('after update trigger trigger.new = ' + trigger.new);
+    }*/
+   
+
+    /*List<account> newAccounts = trigger.new; //is LIST<sObject>
     if(trigger.isAfter && trigger.isInsert){
         system.debug('after trigger trigger.new = ' + newAccounts);
         system.debug('size of trigger.new = ' + newAccounts.size());
 
-        for (account eachAcc : newAccounts){
+        for (account eachAcc : newAccounts) {
             system.debug('account id is ' + eachacc.id + ', each account name is ' + eachAcc.name);
         }
-    }
-    system.debug('====Trigger END====');
+
+    } */
+    
     /*
     system.debug('trigger.isBefore = ' + trigger.isBefore);
     system.debug('trigger.isAfter = ' + trigger.isAfter);
